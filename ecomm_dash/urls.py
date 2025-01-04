@@ -15,12 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from dashboard.views import ExcelUploadAPI, OrderAPI,LoginAPI
+from django.urls import path,include
+from dashboard.views import ExcelUploadAPI, OrderAPI,LoginAPI,index
 
 urlpatterns = [
+    path('', index),
     path('api/excel/', ExcelUploadAPI.as_view()),
     path('api/order/', OrderAPI.as_view()),
     path('api/login/', LoginAPI.as_view()),
     path('admin/', admin.site.urls),
+    path("prometheus/", include("django_prometheus.urls")),
 ]

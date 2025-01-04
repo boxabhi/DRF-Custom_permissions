@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',
-      'rest_framework',
-       'rest_framework.authtoken'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MIDDLEWARE = (
+    ["django_prometheus.middleware.PrometheusBeforeMiddleware"]
+    + MIDDLEWARE
+    + ["django_prometheus.middleware.PrometheusAfterMiddleware"]
+)
+
 
 ROOT_URLCONF = 'ecomm_dash.urls'
 

@@ -5,8 +5,6 @@ from django.core.cache import cache
 def check_permission(method,model):
     def decorator(view_func):
         def _wrapper_view(self , request, *args,**kwargs):
-
-            print("Helo")
             store_owner = StoreOwner.objects.filter(user = request.user)
             print(store_owner)
             if store_owner:

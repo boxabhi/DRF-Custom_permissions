@@ -10,7 +10,15 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import authentication, permissions
 from .permission_checker import check_permission
+from django.http import JsonResponse
+import time
+from .models import *
 
+
+def index(request):
+    Store.objects.create(bmp_id =time.time(), store_name = "store1")
+    print(Store.objects.all())
+    return JsonResponse({"message": "Hello, world!", "timestamp": time.time()})
 
 class LoginAPI(APIView):
     def post(self , request):
@@ -43,6 +51,7 @@ class ExcelUploadAPI(APIView):
     @check_permission("POST", FileUploader)
     @rate_limit(max_requests=15, time_window=60 * 5)
     def post(self , request):
+        
         return Response({
                 "status" : True,
                 "message" : "File uploaded"
